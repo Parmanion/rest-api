@@ -1,0 +1,16 @@
+FROM gitlab.vestiairecollective.com:4567/docker-images/php-7-3-ci
+
+RUN wget -O - https://download.newrelic.com/548C16BF.gpg | apt-key add -
+RUN sh -c 'echo "deb http://apt.newrelic.com/debian/ newrelic non-free" > /etc/apt/sources.list.d/newrelic.list'
+RUN apt-get update
+
+RUN echo "newrelic.license=\"55340ce0138decb3cd20484fa0924a5e9f59f2e3\"" > /etc/php/7.3/fpm/conf.d/newrelic.ini
+
+COPY ops/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ops/php.ini /usr/local/etc/php/conf.d/custom.ini
+
+WORKDIR /var/www
+COPY . .
+
+RUN chmod +x ./ops/deploy.sh
+ENTRYPOINT ["sh", "-c", "./ops/deploy.sh"]
