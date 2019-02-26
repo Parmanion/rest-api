@@ -3,12 +3,12 @@
 namespace App\Controller;
 
 use OpenApi\Annotations as OA;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @OA\Info(
- *     title=REST API",
+ *     title="TRAVELER API",
  *     version="1.0",
  *     @OA\Contact(
  *         email="test@test.com"
@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("")
+     * @Route("/")
      */
     public function index()
     {

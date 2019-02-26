@@ -9,21 +9,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 
 /**
- * @Route("/picures")
+ * @Route("/pictures")
  */
 class PictureController extends AbstractController
 {
     use ValidationAware;
 
     /**
-     * @Route("", methods={"GET"})
+     * @Route("", methods={"POST"})
      *
      * @OA\Get(
-     *     path="/duties",
-     *     tags={"duty calculator"},
-     *     summary="Calculate customs duties and taxes",
-     *     description="Shows the duties and taxes that should be collected by customs when importing goods",
-     *     operationId="calculateDuties",
+     *     path="/pictures",
+     *     tags={"picture"},
+     *     summary="Upload and save multiple pictures",
+     *     description="Upload and save multiple pictures",
+     *     operationId="uploadmultipictures",
      *     @OA\Parameter(
      *         in="query",
      *         name="from_country",
@@ -73,9 +73,9 @@ class PictureController extends AbstractController
     {
         $this->validateRequiredParams(
             $request,
-            ['test']
+            []
         );
 
-        return $this->json('hahaha');
+        return $this->json($request);
     }
 }
