@@ -11,6 +11,7 @@ services:
       DATABASE_URL: mysql://root:root@db/sandbox
       REDIS_URL: redis://cache:7000
       REDIS_CLUSTER_TYPE: redis
+      APP_ENV: dev
   db:
     image: mysql:5.7
     ports:
