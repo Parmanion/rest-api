@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Photo
  *
- * @ORM\Table(name="photo", indexes={@ORM\Index(name="date", columns={"date"}), @ORM\Index(name="place", columns={"place"})})
+ * @ORM\Table(name="photo", indexes={@ORM\Index(name="place", columns={"place"}), @ORM\Index(name="date", columns={"date"})})
  * @ORM\Entity
  */
 class Photo

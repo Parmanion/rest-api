@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Place
  *
- * @ORM\Table(name="place", indexes={@ORM\Index(name="date_start", columns={"date_start"}), @ORM\Index(name="date_end", columns={"date_end"})})
+ * @ORM\Table(name="place", indexes={@ORM\Index(name="date_end", columns={"date_end"}), @ORM\Index(name="date_start", columns={"date_start"})})
  * @ORM\Entity
  */
 class Place

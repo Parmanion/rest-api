@@ -63,6 +63,7 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
+        "entity-update": ["php bin/console doctrine:mapping:import 'App\\Entity' annotation --path=src/Entity", "php bin/console make:entity --regenerate App"],
         "fixtures": "php bin/console doctrine:fixtures:load --no-interaction",
         "report": "mkdir public/phpunit",
         "test": "bin/phpunit --configuration phpunit.xml.dist  --coverage-html phpunit-report --coverage-text",
