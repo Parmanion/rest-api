@@ -126,8 +126,24 @@
     "guzzlehttp/psr7": {
         "version": "1.5.2"
     },
+    "imagine/imagine": {
+        "version": "v0.7.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "liip/imagine-bundle": {
+        "version": "1.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.8",
+            "ref": "523b4b0cfb88dc8637cb56e427e6be7718bdce32"
+        },
+        "files": [
+            "config/packages/liip_imagine.yaml",
+            "config/routes/liip_imagine.yaml"
+        ]
     },
     "monolog/monolog": {
         "version": "1.24.0"
@@ -182,6 +198,9 @@
     },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
+    },
+    "symfony/asset": {
+        "version": "v4.2.3"
     },
     "symfony/browser-kit": {
         "version": "v4.2.3"
@@ -349,6 +368,22 @@
     },
     "symfony/stopwatch": {
         "version": "v4.2.3"
+    },
+    "symfony/templating": {
+        "version": "v4.2.3"
+    },
+    "symfony/translation": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "1fb02a6e1c8f3d4232cce485c9afa868d63b115a"
+        },
+        "files": [
+            "config/packages/translation.yaml",
+            "translations/.gitignore"
+        ]
     },
     "symfony/var-exporter": {
         "version": "v4.2.3"

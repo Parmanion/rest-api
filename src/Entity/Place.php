@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Place
  *
- * @ORM\Table(name="place", indexes={@ORM\Index(name="date_end", columns={"date_end"}), @ORM\Index(name="date_start", columns={"date_start"})})
+ * @ORM\Table(name="place")
  * @ORM\Entity
  */
 class Place
@@ -15,9 +15,10 @@ class Place
     /**
      * @var string
      *
-     * @ORM\Column(name="id", type="string", length=9, nullable=false)
+     * @ORM\Column(name="id", type="string", length=17, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="App\Core\UuidGenerator")
      */
     private $id;
 
@@ -45,36 +46,58 @@ class Place
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="datetime_start_utc", type="datetime", nullable=false)
+     */
+    private $datetimeStartUtc;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datetime_start_local", type="datetime", nullable=false)
+     */
+    private $datetimeStartLocal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="timezone_start", type="string", length=50, nullable=false, options={"default"="Europe/Paris"})
+     */
+    private $timezoneStart = 'Europe/Paris';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datetime_end_utc", type="datetime", nullable=false)
+     */
+    private $datetimeEndUtc;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datetime_end_local", type="datetime", nullable=false)
+     */
+    private $datetimeEndLocal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="timezone_end", type="string", length=50, nullable=false, options={"default"="Europe/Paris"})
+     */
+    private $timezoneEnd = 'Europe/Paris';
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="created_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $createdAt = 'CURRENT_TIMESTAMP';
+    private $createdAt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $updatedAt = 'CURRENT_TIMESTAMP';
-
-    /**
-     * @var \Time
-     *
-     * @ORM\ManyToOne(targetEntity="Time")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="date_end", referencedColumnName="id")
-     * })
-     */
-    private $dateEnd;
-
-    /**
-     * @var \Time
-     *
-     * @ORM\ManyToOne(targetEntity="Time")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="date_start", referencedColumnName="id")
-     * })
-     */
-    private $dateStart;
+    private $updatedAt;
 
     public function getId(): ?string
     {
@@ -117,6 +140,78 @@ class Place
         return $this;
     }
 
+    public function getDatetimeStartUtc(): ?\DateTimeInterface
+    {
+        return $this->datetimeStartUtc;
+    }
+
+    public function setDatetimeStartUtc(\DateTimeInterface $datetimeStartUtc): self
+    {
+        $this->datetimeStartUtc = $datetimeStartUtc;
+
+        return $this;
+    }
+
+    public function getDatetimeStartLocal(): ?\DateTimeInterface
+    {
+        return $this->datetimeStartLocal;
+    }
+
+    public function setDatetimeStartLocal(\DateTimeInterface $datetimeStartLocal): self
+    {
+        $this->datetimeStartLocal = $datetimeStartLocal;
+
+        return $this;
+    }
+
+    public function getTimezoneStart(): ?string
+    {
+        return $this->timezoneStart;
+    }
+
+    public function setTimezoneStart(string $timezoneStart): self
+    {
+        $this->timezoneStart = $timezoneStart;
+
+        return $this;
+    }
+
+    public function getDatetimeEndUtc(): ?\DateTimeInterface
+    {
+        return $this->datetimeEndUtc;
+    }
+
+    public function setDatetimeEndUtc(\DateTimeInterface $datetimeEndUtc): self
+    {
+        $this->datetimeEndUtc = $datetimeEndUtc;
+
+        return $this;
+    }
+
+    public function getDatetimeEndLocal(): ?\DateTimeInterface
+    {
+        return $this->datetimeEndLocal;
+    }
+
+    public function setDatetimeEndLocal(\DateTimeInterface $datetimeEndLocal): self
+    {
+        $this->datetimeEndLocal = $datetimeEndLocal;
+
+        return $this;
+    }
+
+    public function getTimezoneEnd(): ?string
+    {
+        return $this->timezoneEnd;
+    }
+
+    public function setTimezoneEnd(string $timezoneEnd): self
+    {
+        $this->timezoneEnd = $timezoneEnd;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -137,30 +232,6 @@ class Place
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getDateEnd(): ?Time
-    {
-        return $this->dateEnd;
-    }
-
-    public function setDateEnd(?Time $dateEnd): self
-    {
-        $this->dateEnd = $dateEnd;
-
-        return $this;
-    }
-
-    public function getDateStart(): ?Time
-    {
-        return $this->dateStart;
-    }
-
-    public function setDateStart(?Time $dateStart): self
-    {
-        $this->dateStart = $dateStart;
 
         return $this;
     }

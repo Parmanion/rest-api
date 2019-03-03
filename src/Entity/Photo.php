@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Photo
  *
- * @ORM\Table(name="photo", indexes={@ORM\Index(name="place", columns={"place"}), @ORM\Index(name="date", columns={"date"})})
+ * @ORM\Table(name="photo", indexes={@ORM\Index(name="place", columns={"place"})})
  * @ORM\Entity
  */
 class Photo
@@ -15,9 +15,10 @@ class Photo
     /**
      * @var string
      *
-     * @ORM\Column(name="id", type="string", length=9, nullable=false)
+     * @ORM\Column(name="id", type="string", length=17, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="App\Core\UuidGenerator")
      */
     private $id;
 
@@ -38,16 +39,37 @@ class Photo
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="datetime_utc", type="datetime", nullable=false)
+     */
+    private $datetimeUtc;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datetime_local", type="datetime", nullable=false)
+     */
+    private $datetimeLocal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="timezone", type="string", length=50, nullable=false, options={"default"="Europe/Paris"})
+     */
+    private $timezone = 'Europe/Paris';
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="created_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $createdAt = 'CURRENT_TIMESTAMP';
+    private $createdAt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $updatedAt = 'CURRENT_TIMESTAMP';
+    private $updatedAt;
 
     /**
      * @var \Place
@@ -58,16 +80,6 @@ class Photo
      * })
      */
     private $place;
-
-    /**
-     * @var \Time
-     *
-     * @ORM\ManyToOne(targetEntity="Time")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="date", referencedColumnName="id")
-     * })
-     */
-    private $date;
 
     public function getId(): ?string
     {
@@ -94,6 +106,42 @@ class Photo
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDatetimeUtc(): ?\DateTimeInterface
+    {
+        return $this->datetimeUtc;
+    }
+
+    public function setDatetimeUtc(\DateTimeInterface $datetimeUtc): self
+    {
+        $this->datetimeUtc = $datetimeUtc;
+
+        return $this;
+    }
+
+    public function getDatetimeLocal(): ?\DateTimeInterface
+    {
+        return $this->datetimeLocal;
+    }
+
+    public function setDatetimeLocal(\DateTimeInterface $datetimeLocal): self
+    {
+        $this->datetimeLocal = $datetimeLocal;
+
+        return $this;
+    }
+
+    public function getTimezone(): ?string
+    {
+        return $this->timezone;
+    }
+
+    public function setTimezone(string $timezone): self
+    {
+        $this->timezone = $timezone;
 
         return $this;
     }
@@ -130,18 +178,6 @@ class Photo
     public function setPlace(?Place $place): self
     {
         $this->place = $place;
-
-        return $this;
-    }
-
-    public function getDate(): ?Time
-    {
-        return $this->date;
-    }
-
-    public function setDate(?Time $date): self
-    {
-        $this->date = $date;
 
         return $this;
     }
