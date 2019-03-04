@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Core\FileManipulation;
 use App\Photo\Photo;
 use App\Place\Place;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -12,6 +13,8 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+//        FileManipulation::hexaHashFolder(__DIR__.'/../../img/photos/test', 3);
+
         // create 4 travel! Bam!
         for ($i = 0; $i < 4; $i++) {
             $travel = $this->generateTravel();
@@ -73,13 +76,18 @@ class AppFixtures extends Fixture
         $date->add(new \DateInterval('PT' . ($k + rand(1, 3)) . 'H'));
 
         $photo = new Photo();
-        $photo->setName($faker->text(50))
+        $photo->setName(uniqid('pho_').'.jpg')
               ->setDescription($faker->text)
               ->setPlace($step)
               ->setTimezone($date->getTimezone()->getName())
               ->setDatetimeLocal(clone $date);
         $date->setTimezone(new \DateTimeZone('UTC'));
         $photo->setDatetimeUtc($date);
+
+        $tmpFileName = $faker->image('/tmp', 800, 600, 'cats', true, true);
+        $newFileName = FileManipulation::getPhotoPathByName($photo->getName());
+        echo $newFileName . PHP_EOL;
+        rename($tmpFileName, $newFileName);
 
         return $photo;
     }
