@@ -13,7 +13,11 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-//        FileManipulation::hexaHashFolder(__DIR__.'/../../img/photos/test', 3);
+        $pathOfPhotos = realpath(__DIR__.'/../../img/photos/test');
+        if($pathOfPhotos !== false && is_dir($pathOfPhotos)) {
+            FileManipulation::delTree($pathOfPhotos);
+        }
+        FileManipulation::hexaHashFolder(__DIR__.'/../../img/photos/test', 3);
 
         // create 4 travel! Bam!
         for ($i = 0; $i < 4; $i++) {
