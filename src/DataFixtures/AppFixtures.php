@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Photo;
-use App\Entity\Place;
+use App\Photo\Photo;
+use App\Place\Place;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -70,11 +70,12 @@ class AppFixtures extends Fixture
             $step->getDatetimeStartLocal()->format('Y-m-d H:i:s'),
             $step->getDatetimeStartLocal()->getTimezone()
         );
-        $date->add(new \DateInterval('P' . ($k + rand(1, 3)) . 'H'));
+        $date->add(new \DateInterval('PT' . ($k + rand(1, 3)) . 'H'));
 
         $photo = new Photo();
-        $photo->setName($faker->realText(50))
+        $photo->setName($faker->text(50))
               ->setDescription($faker->text)
+              ->setPlace($step)
               ->setTimezone($date->getTimezone()->getName())
               ->setDatetimeLocal(clone $date);
         $date->setTimezone(new \DateTimeZone('UTC'));

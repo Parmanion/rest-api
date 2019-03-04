@@ -18,7 +18,9 @@ class UuidGenerator extends AbstractIdGenerator
     public function generate(\Doctrine\ORM\EntityManager $em, $entity): string
     {
         $entity_name = $em->getClassMetadata(get_class($entity))->getName();
-        $firstThreeChar = substr($entity_name, 0, 3);
+        $arrEntityName = explode('\\', $entity_name);
+        $lastName = $arrEntityName[(count($arrEntityName) - 1)];
+        $firstThreeChar = substr($lastName, 0, 3);
 
         return uniqid(strtolower($firstThreeChar) . '_');
     }

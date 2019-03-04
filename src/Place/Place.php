@@ -1,102 +1,31 @@
 <?php
 
-namespace App\Entity;
+namespace App\Place;
 
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * Place
- *
- * @ORM\Table(name="place")
- * @ORM\Entity
- */
 class Place
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="id", type="string", length=17, nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="App\Core\UuidGenerator")
-     */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="kind", type="string", length=6, nullable=false)
-     */
     private $kind;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
-     */
     private $name;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="description", type="text", length=255, nullable=true)
-     */
     private $description;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="datetime_start_utc", type="datetime", nullable=false)
-     */
     private $datetimeStartUtc;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="datetime_start_local", type="datetime", nullable=false)
-     */
     private $datetimeStartLocal;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="timezone_start", type="string", length=50, nullable=false, options={"default"="Europe/Paris"})
-     */
-    private $timezoneStart = 'Europe/Paris';
+    private $timezoneStart;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="datetime_end_utc", type="datetime", nullable=false)
-     */
     private $datetimeEndUtc;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="datetime_end_local", type="datetime", nullable=false)
-     */
     private $datetimeEndLocal;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="timezone_end", type="string", length=50, nullable=false, options={"default"="Europe/Paris"})
-     */
-    private $timezoneEnd = 'Europe/Paris';
+    private $timezoneEnd;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     */
     private $createdAt;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     */
     private $updatedAt;
 
     public function getId(): ?string
@@ -235,6 +164,4 @@ class Place
 
         return $this;
     }
-
-
 }

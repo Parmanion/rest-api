@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Photo;
 
+use App\Core\ValidationAware;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

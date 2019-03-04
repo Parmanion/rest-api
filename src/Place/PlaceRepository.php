@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Place;
 
 
-use App\Entity\Place;
+use App\Place\Place;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

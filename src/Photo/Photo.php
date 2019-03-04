@@ -1,84 +1,27 @@
 <?php
 
-namespace App\Entity;
+namespace App\Photo;
 
-use Doctrine\ORM\Mapping as ORM;
+use App\Place\Place;
 
-/**
- * Photo
- *
- * @ORM\Table(name="photo", indexes={@ORM\Index(name="place", columns={"place"})})
- * @ORM\Entity
- */
 class Photo
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="id", type="string", length=17, nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="App\Core\UuidGenerator")
-     */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
-     */
     private $name;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="description", type="text", length=255, nullable=true)
-     */
     private $description;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="datetime_utc", type="datetime", nullable=false)
-     */
     private $datetimeUtc;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="datetime_local", type="datetime", nullable=false)
-     */
     private $datetimeLocal;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="timezone", type="string", length=50, nullable=false, options={"default"="Europe/Paris"})
-     */
-    private $timezone = 'Europe/Paris';
+    private $timezone;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     */
     private $createdAt;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     */
     private $updatedAt;
 
-    /**
-     * @var \Place
-     *
-     * @ORM\ManyToOne(targetEntity="Place")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="place", referencedColumnName="id")
-     * })
-     */
     private $place;
 
     public function getId(): ?string
@@ -181,6 +124,4 @@ class Photo
 
         return $this;
     }
-
-
 }
