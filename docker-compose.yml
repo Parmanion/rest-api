@@ -12,6 +12,7 @@ services:
       REDIS_URL: redis://cache:7000
       REDIS_CLUSTER_TYPE: redis
       APP_ENV: dev
+      PHOTOS_BASE_PATH: /var/www/img/photos/test
   db:
     image: mysql:5.7
     ports:

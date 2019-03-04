@@ -11,13 +11,19 @@ use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @var string
+     */
+    private $photoBasepath;
+
     public function load(ObjectManager $manager)
     {
-        $pathOfPhotos = realpath(__DIR__.'/../../img/photos/test');
+        $this->photoBasepath = getenv('PHOTOS_BASE_PATH');
+        $pathOfPhotos =   ($this->photoBasepath);
         if($pathOfPhotos !== false && is_dir($pathOfPhotos)) {
             FileManipulation::delTree($pathOfPhotos);
         }
-        FileManipulation::hexaHashFolder(__DIR__.'/../../img/photos/test', 3);
+        FileManipulation::hexaHashFolder($pathOfPhotos, 3);
 
         // create 4 travel! Bam!
         for ($i = 0; $i < 4; $i++) {
@@ -90,7 +96,6 @@ class AppFixtures extends Fixture
 
         $tmpFileName = $faker->image('/tmp', 800, 600, 'cats', true, true);
         $newFileName = FileManipulation::getPhotoPathByName($photo->getName());
-        echo $newFileName . PHP_EOL;
         rename($tmpFileName, $newFileName);
 
         return $photo;
